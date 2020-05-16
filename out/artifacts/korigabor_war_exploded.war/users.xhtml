@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition template="templates/common.xhtml">
+        <ui:define name="content">
+            <h:form id="form">
+                <p:growl id="msgs" showDetail="true" life="2000"/>
+                <p:dataTable id="users" var="user" value="#{userView.users}" filteredValue="#{userView.filteredUsers}"
+                             editable="true" widgetVar="usersTable">
+
+                    <p:ajax event="rowEdit" listener="#{userView.onRowEdit}" update=":form:msgs" immediate="true"/>
+                    <p:ajax event="rowEditCancel" listener="#{userView.onRowCancel}" update=":form:msgs"/>
+
+                    <!-- convert int to string for output-->
+                    <p:column headerText="Id" filterBy="#{user.id}" filterMatchMode="contains">
+                        <f:facet name="output">
+                            <h:outputText value="#{user.id}">
+                                <f:converter converterId="javax.faces.Number"></f:converter>
+                            </h:outputText>
+
+                        </f:facet>
+                        <f:facet name="input"><p:inputText id="modelInput" value="#{user.id}"/></f:facet>
+                    </p:column>
+
+                    <p:column filterBy="#{user.fullname}" headerText="Teljes név" filterMatchMode="contains">
+                        <p:cellEditor disabled="#{!user.activeUser}">
+                            <f:facet name="output"><h:outputText value="#{user.fullname}"/></f:facet>
+                            <f:facet name="input"><p:inputText value="#{user.fullname}" style="width:96%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Mobil szám">
+                        <p:cellEditor disabled="#{!user.activeUser}">
+                            <f:facet name="output"><h:outputText value="#{user.mobilenumber}"/></f:facet>
+                            <f:facet name="input"><p:inputText value="#{user.mobilenumber}"
+                                                               style="width:96%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column filterBy="#{user.cardnumber}" headerText="Személyazonosító igazolványszám"
+                              filterMatchMode="contains">
+                        <p:cellEditor disabled="#{!user.activeUser}">
+                            <f:facet name="output"><h:outputText value="#{user.cardnumber}"/></f:facet>
+                            <f:facet name="input"><p:inputText value="#{user.cardnumber}" style="width:96%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Lakcím">
+                        <p:cellEditor disabled="#{!user.activeUser}">
+                            <f:facet name="output"><h:outputText value="#{user.address}"/></f:facet>
+                            <f:facet name="input"><p:inputText value="#{user.address}" style="width:96%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column filterBy="#{user.activeUser}" headerText="Aktív felhasználó?" filterMatchMode="equals">
+                        <f:facet name="filter">
+                            <p:selectOneButton onchange="PF('usersTable').filter()" styleClass="custom-filter">
+                                <f:converter converterId="javax.faces.Boolean"/>
+                                <f:selectItem itemLabel="Összes" itemValue=""/>
+                                <f:selectItem itemLabel="Aktív" itemValue="true"/>
+                                <f:selectItem itemLabel="Inaktív" itemValue="false"/>
+                            </p:selectOneButton>
+                        </f:facet>
+                        <p:cellEditor disabled="#{!user.activeUser}">
+                            <f:facet name="output">
+                                <h:outputText value="#{user.activeUser  ? 'Aktív' : 'Nem aktív'}"/>
+                            </f:facet>
+
+                            <f:facet name="input">
+                                <h:selectBooleanCheckbox value="#{user.activeUser}" itemLabel="törlés"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column style="width:35px">
+                        <p:rowEditor/>
+                    </p:column>
+                </p:dataTable>
+
+                <p:contextMenu for="users" widgetVar="cMenu">
+                    <p:menuitem value="Edit Cell" icon="pi pi-search"
+                                onclick="PF('usersTable').showCellEditor();return false;"/>
+                    <p:menuitem value="Hide Menu" icon="pi pi-times" onclick="PF('cMenu').hide()"/>
+                </p:contextMenu>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

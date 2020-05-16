@@ -1,0 +1,36 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- JDBC Database connection settings -->
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sgbank?unicode=true&amp;connectionCollation=utf8_hungarian_ci&amp;characterSetResults=utf8&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC</property>
+        <property name="hibernate.connection.username">testuser1</property>
+        <property name="hibernate.connection.password">Testuser1</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+        <property name="hibernate.hbm2ddl.charset_name">UTF-8</property>
+        <property name="hibernate.show_sql">true</property>
+        <!--
+        <property name="hibernate.hbm2ddl.auto">create-drop</property>
+        -->
+        <property name="hibernate.hbm2ddl.import_files_sql_extractor">org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor</property>
+        <property name="hibernate.hbm2ddl.import_files">bankdb.sql</property>
+        <property name="connection.pool_size">1</property>
+        <property name="current_session_context_class">thread</property>
+        <property name="hibernate.dbcp.initialSize">5</property>
+        <property name="hibernate.dbcp.maxTotal">20</property>
+        <property name="hibernate.dbcp.maxIdle">10</property>
+        <property name="hibernate.dbcp.minIdle">5</property>
+        <property name="hibernate.dbcp.maxWaitMillis">-1</property>
+
+        <mapping class="sg.bank.entity.Users"/>
+        <mapping class="sg.bank.entity.Account"/>
+
+        <!--
+      <mapping class="beke.ire.entity.LoanableStatusEntity"/>
+      <mapping class="beke.ire.entity.LoanableTypeEntity"/>
+      <mapping class="beke.ire.entity.LoanablesEntity"/>
+      -->
+    </session-factory>
+</hibernate-configuration>
