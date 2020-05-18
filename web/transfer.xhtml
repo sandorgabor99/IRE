@@ -17,13 +17,13 @@
             <h:form id="form">
                 <p:growl id="growl" showDetail="true" sticky="true"/>
                 <h:panelGrid columns="2" cellpadding="10">
-                <p:outputLabel for="from" value="Küldő ügyfél azonosítója: "/>
-                <p:selectOneMenu id="from" value="#{accountView.sender.id}">
-                    <f:selectItem itemLabel="Válasszon egyet!" itemValue=""/>
-                    <f:selectItems value="#{accountView.activeAccounts}" var="user" itemValue="#{user.id}"
-                                   itemLabel="#{user.user.id} - #{user.user.fullname} - #{user.accountnumber}"/>
-                </p:selectOneMenu>
-            </h:panelGrid>
+                    <p:outputLabel for="from" value="Küldő ügyfél azonosítója: "/>
+                    <p:selectOneMenu id="from" value="#{accountView.sender.id}">
+                        <f:selectItem itemLabel="Válasszon egyet!" itemValue=""/>
+                        <f:selectItems value="#{accountView.activeAccounts}" var="user" itemValue="#{user.id}"
+                                       itemLabel="#{user.user.id} - #{user.user.fullname} - #{user.accountnumber}"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
 
                 <h:panelGrid columns="2" cellpadding="10">
                     <p:outputLabel for="who" value="Fogadó ügyfél azonosítója: "/>
@@ -34,10 +34,17 @@
                     </p:selectOneMenu>
                 </h:panelGrid>
 
-                <p:outputLabel for="MoneyOut" value="Átutalandó összeg: "  />
-                <p:inputNumber id="MoneyOut" value="#{accountView.money_out}" symbol=" HUF" symbolPosition="s" decimalSeparator="." thousandSeparator="," required="true"> </p:inputNumber>
+                <p:outputLabel for="MoneyOut" value="Átutalandó összeg: "/>
+                <p:inputNumber id="MoneyOut" value="#{accountView.money_out}" symbol=" HUF" symbolPosition="s"
+                               decimalSeparator="." thousandSeparator="," required="true"> </p:inputNumber>
 
-                <p:commandButton value="Átutalás" id="withIcon" action="#{accountView.transferMoney}" style="margin-right:20px;" icon="pi pi-save" update=":form:growl"/>
+                <span class="ui-float-label">
+                <p:inputText id="float-input" value="#{accountView.transfer_note}"/>
+                    <p:outputLabel for="@previous" value="Megjegyzés"/>
+                </span>
+
+                <p:commandButton value="Átutalás" id="withIcon" action="#{accountView.transferMoney}"
+                                 style="margin-right:20px;" icon="pi pi-save" update=":form:growl"/>
 
             </h:form>
         </ui:define>

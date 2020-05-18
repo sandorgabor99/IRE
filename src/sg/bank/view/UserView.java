@@ -37,8 +37,6 @@ public class UserView implements Serializable {
     }
 
     public String addNewUser() {
-        newUser.setActiveUser(true);
-        System.out.println(newUser.toString());
         service.createUser(newUser);
         newUser = new Users();
         return "users?faces-redirect=true\"";

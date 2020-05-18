@@ -30,6 +30,11 @@ public class Users {
     @Column(name = "aktiv")
     private boolean activeUser;
 
+    @Basic
+    @Column(name = "szamlas")
+    private boolean hasAccount;
+
+
     public Users() {
     }
 
@@ -79,6 +84,14 @@ public class Users {
 
     public void setActiveUser(boolean activeUser) {
         this.activeUser = activeUser;
+    }
+
+    public boolean isHasAccount() {
+        return hasAccount;
+    }
+
+    public void setHasAccount(boolean hasAccount) {
+        this.hasAccount = hasAccount;
     }
 
     @Override

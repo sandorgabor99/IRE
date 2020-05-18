@@ -42,20 +42,19 @@ public class AccountDto {
         return list;
     }
 
-    public boolean checkIfUserHasNotAccount(int id) {
-        if (!list.isEmpty()) {
-            list.clear();
-        }
+    public Account checkIfUserHasNotAccount(int id) {
+        Account account = new Account();
         try {
             Query query = session.createQuery("Select a from Account a where a.user.id =: id");
             query.setParameter("id", id);
-            if(query.getSingleResult() == null){
-                return true;
-            }
+            account = (Account) query.getSingleResult();
         } catch (Exception e) {
             System.out.println("\n getAllAccounts exception: \n " + e.getMessage());
         }
-        return false;
+        if(account == null){
+            return null;
+        }
+        return account;
     }
 
     public Account getAccountById(int id) {

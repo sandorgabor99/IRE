@@ -23,9 +23,12 @@ public class UserService {
     }
 
     public void createUser(Users entity) {
+        entity.setActiveUser(true);
+        entity.setHasAccount(false);
         int id = Integer.parseInt(getRandomNumberString());
         if(usersDto.getUserById(id) == null){
             entity.setId(id); //generated id setting
+            System.out.println(entity.toString());
             usersDto.createNewUser(entity);
         }
 

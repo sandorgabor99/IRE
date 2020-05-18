@@ -16,7 +16,7 @@
         -->
         <property name="hibernate.hbm2ddl.import_files_sql_extractor">org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor</property>
         <property name="hibernate.hbm2ddl.import_files">bankdb.sql</property>
-        <property name="connection.pool_size">1</property>
+        <property name="connection.pool_size">10</property>
         <property name="current_session_context_class">thread</property>
         <property name="hibernate.dbcp.initialSize">5</property>
         <property name="hibernate.dbcp.maxTotal">20</property>
@@ -26,11 +26,7 @@
 
         <mapping class="sg.bank.entity.Users"/>
         <mapping class="sg.bank.entity.Account"/>
+        <mapping class="sg.bank.entity.Transactions"/>
 
-        <!--
-      <mapping class="beke.ire.entity.LoanableStatusEntity"/>
-      <mapping class="beke.ire.entity.LoanableTypeEntity"/>
-      <mapping class="beke.ire.entity.LoanablesEntity"/>
-      -->
     </session-factory>
 </hibernate-configuration>

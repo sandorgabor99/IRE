@@ -2,6 +2,7 @@ package sg.bank.service;
 
 import sg.bank.dto.AccountDto;
 import sg.bank.entity.Account;
+import sg.bank.entity.Transactions;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
@@ -23,11 +24,15 @@ public class AccountService {
 
     public void createAccount(Account entity) {
         String accountNumber = String.valueOf(entity.getUser().getId()+getRandomNumberString());
-
         System.out.println("Account id is : " +accountNumber);
         if(accountDto.getAccountByAccountNumber(accountNumber) == null){
             entity.setAccountnumber(accountNumber); //generated id setting
+            entity.setActiveAccount(true);
+            entity.getUser().setHasAccount(true);
+            System.out.println(entity.toString());
             accountDto.createNewAccount(entity);
+
+
         }
 
     }
@@ -50,7 +55,7 @@ public class AccountService {
         return String.format("%04d", number);
     }
 
-    public boolean checkIfUserHasNotAccount(int id){
+    public Account checkIfUserHasNotAccount(int id){
         return accountDto.checkIfUserHasNotAccount(id);
     }
 }
